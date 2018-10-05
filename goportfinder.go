@@ -29,14 +29,14 @@ func Ulimit() int64 {
 	if err != nil {
 		panic(err)
 	}
-	
+
 	s := strings.TrimSpace(string(out))
-	
+
 	i, err := strconv.ParseInt(s, 10, 64)
 	if err != nil {
 		panic(err)
 	}
-	
+
 	return i
 }
 
@@ -81,11 +81,11 @@ func main() {
 	ipaddress := net.ParseIP(ip_string)
 	fmt.Println(ipaddress)
 
-	ps := &PortFinder {
+	ps := &PortFinder{
 		ip:   ip_string, // input target IP, needs to be changed to user input (single or file)
 		lock: semaphore.NewWeighted(Ulimit()),
 	}
-	ps.Start(1, 3000, 3000*time.Millisecond) // fiddling around with this a bit, 1, 3000 is the portrange and can be adjusted.
+	ps.Start(1, 65535, 3000*time.Millisecond) // fiddling around with this a bit, 1, 3000 is the portrange and can be adjusted.
 
 	// work in progress based on the script from Kent Gruber: https://medium.com/@KentGruber/building-a-high-performance-port-scanner-with-golang-9976181ec39d
 }
